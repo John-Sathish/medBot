@@ -2,7 +2,6 @@ import tkinter as tk
 from datetime import datetime
 import json
 
-# --------- Load intents (symptom checker data) --------- #
 with open('intents.json', 'r') as file:
     intents = json.load(file)
 
@@ -24,24 +23,20 @@ def get_response(user_input):
     else:
         return "I'm sorry, I didn't quite catch that. Could you describe your symptom differently?"
 
-# --------- Tkinter UI Setup --------- #
 root = tk.Tk()
 root.title("Symptom Checker")
 root.geometry("400x600")
 root.configure(bg="#f5f5f5")
 
-# --------- HEADER --------- #
 header = tk.Frame(root, bg="#0078FF", height=60)
 header.pack(fill="x")
 
 bot_label = tk.Label(header, text="SymptomBot", font=("Helvetica", 14, "bold"), fg="white", bg="#0078FF")
 bot_label.pack(side="left", padx=15, pady=15)
 
-# --------- TIMESTAMP --------- #
 timestamp = tk.Label(root, text=datetime.now().strftime("%m/%d/%y, %I:%M %p"), font=("Helvetica", 9), bg="#f5f5f5", fg="#888")
 timestamp.pack(pady=5)
 
-# --------- CHAT AREA --------- #
 chat_frame = tk.Frame(root, bg="#f5f5f5")
 chat_frame.pack(fill="both", expand=True, padx=10)
 
@@ -60,7 +55,6 @@ canvas.configure(yscrollcommand=scrollbar.set)
 canvas.pack(side="left", fill="both", expand=True)
 scrollbar.pack(side="right", fill="y")
 
-# --------- INPUT AREA --------- #
 input_frame = tk.Frame(root, bg="#ffffff", height=50)
 input_frame.pack(fill="x")
 
@@ -86,7 +80,6 @@ user_input.bind("<Return>", on_enter)
 send_button = tk.Button(input_frame, text="Send", command=on_send, bg="#0078FF", fg="white", padx=10, pady=5)
 send_button.pack(side="right", padx=10)
 
-# --------- MESSAGE FUNCTIONS --------- #
 def add_bot_message(text):
     msg_frame = tk.Frame(scrollable_frame, bg="#f5f5f5")
 
@@ -130,8 +123,6 @@ def add_user_message(text):
     msg_frame.pack(anchor="e", pady=10, fill="x")
     canvas.yview_moveto(1.0)
 
-# --------- WELCOME MESSAGE --------- #
 root.after(100, lambda: add_bot_message("Hello! I'm SymptomBot 🤖\nPlease describe your symptoms, and I'll try to help!"))
 
-# --------- RUN THE APP --------- #
 root.mainloop()
